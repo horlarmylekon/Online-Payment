@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+
+{% block title %}{{ block.super }}Profile{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+
+<div class="container">
+  <div class="container profile-head">
+  <h1 class="text-primary">Payment Details</h1>
+  </div>
+  <br>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <img title="profile picture" class="img-circle img-responsive" src="{% thumbnail user.profile.picture|default:'default_profile.png' 140x140 crop %}">
+      </div>
+    </div>
+    
+
+    <!-- edit form column -->
+    <div class="col-md-9">
+      <ul class="nav nav-tabs nav-tabs-bottom">
+        <li class="nav-item">
+          <a href="#bottom-tab1" data-toggle="tab" class="nav-link active">Pay with Card</a>
+        </li>
+        <li class="nav-item">
+          <a href="#bottom-tab2" data-toggle="tab" class="nav-link">Pay with Paypal</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="bottom-tab1">
+          <h3>Payment Transaction</h3>
+          <form enctype="multipart/form-data" method="post">
+	          {% crispy payment_form %}
+          </form>
+        </div>
+        <div class="tab-pane fade" id="bottom-tab2">
+          <h3>Payment Transaction</h3>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <a class="btn btn-default pull-right" href="{% url 'accounts:password-change' %}">Change Password</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
